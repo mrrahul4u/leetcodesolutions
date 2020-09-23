@@ -1,0 +1,51 @@
+class Solution {
+    public int[] kWeakestRows(int[][] mat, int k) {
+        int[] a=new int[mat.length]; //create an array of size mat,to store the indexes
+        int[] b=new int[mat.length];  //Create an array of size mat,to store the no of 1's occured in the array
+        int count=0;
+        for(int i=0;i<mat.length;i++)
+        {
+            for(int j=0;j<mat[i].length;j++)
+            {
+                if(mat[i][j]==1)
+                {
+                    count++;
+                }
+            }
+            a[i]=i;
+            b[i]=count;
+            count=0;
+        }
+        int temp=0;// perform bubble sort operation for sorting the elements in the b
+        for(int x=0;x<b.length-1;x++)
+        {
+            for(int y=0;y<b.length-1-x;y++)
+            {
+                if(b[y]>b[y+1])
+                {
+                    temp=b[y];
+                    b[y]=b[y+1];
+                    b[y+1]=temp;
+                    temp=a[y];   // when we sort the index will also change so that we sort the indexs also 
+                    a[y]=a[y+1];
+                    a[y+1]=temp;
+                }
+                else if(b[y]==b[y+1] && a[y]>a[y+1]) // if there are same 1's
+                {
+                    temp=b[y];
+                    b[y]=b[y+1];
+                    b[y+1]=temp;
+                    temp=a[y];
+                    a[y]=a[y+1];
+                    a[y+1]=temp;
+                }
+            }
+        }
+        int q[]=new int[k]; // store it in new array with k length 
+        for(int r=0;r<k;r++)
+        {
+            q[r]=a[r];
+        }
+        return q;
+    }
+}
